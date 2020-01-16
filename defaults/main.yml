@@ -1,0 +1,34 @@
+---
+# defaults file for ansible-morethandotfiles
+dotfiles_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
+
+# PREFIX is dotfiles_user_home
+dotfiles_antibody_home_suffix: ".local/share/antibody"
+
+dotfiles_symlinks:
+  - src: "config/zsh/zshenv"
+    dst: ".zshenv"
+  - src: "config/zsh"
+    dst: ".config/zsh"
+  - src: "config/powershell"
+    dst: ".config/powershell"
+  - src: "gitconfig"
+    dst: ".gitconfig"
+  - src: "gitignore_global"
+    dst: ".gitignore_global"
+  - src: "dir_colors"
+    dst: ".dir_colors"
+  - src: "bin"
+    dst: ".bin"
+  - src: "ssh/config"
+    dst: ".ssh/config"
+  - src: "gnupg"
+    dst: ".gnupg"
+  - src: "Xresources"
+    dst: ".Xdefaults"
+  - src: "Xresources"
+    dst: ".Xresources"
+  - src: "xsessionrc"
+    dst: ".xsessionrc"
+  - src: "nvmrc"
+    dst: ".nvmrc"

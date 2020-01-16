@@ -1,0 +1,22 @@
+---
+# tasks file for ansible-morethandotfiles
+- name: Set distro-specific variables
+  include_vars: '{{ item }}'
+  with_first_found:
+    - '{{ ansible_os_family }}.yml'
+    - default.yml
+
+- name: Define role facts
+  include_tasks: "define-role-facts.yml"
+
+# Install shell, and plugin manager
+- name: Install system prerequisites
+  include_tasks: "setup-system.yml"
+
+- name: Install dotfiles
+  import_tasks: "install-dotfiles.yml"
+  become: true
+  become_user: "{{ dotfiles_user }}"
+
+- name: Install other tools
+  include_tasks: "install-other-tools.yml"

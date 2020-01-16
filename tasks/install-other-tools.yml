@@ -1,0 +1,93 @@
+---
+- name: Download and Install fd
+  block:
+    - name: Register latest version of fd
+      shell:
+        cmd: |
+          set -o pipefail
+          curl -sL https://github.com/sharkdp/fd/releases.atom | \
+          awk 'BEGIN{done=0} /title>(v.*)</{match($0, />(.*)</, m); if(done == 0){result=m[1]};done=1;} END{print result}'
+        executable: /bin/bash
+      register: dotfiles_fd_version_result
+
+    - name: Define dotfiles_fd_version
+      set_fact:
+        dotfiles_fd_version: "{{ dotfiles_fd_version_result.stdout|regex_replace('^v', '') }}"
+
+    - name: Download latest fd DEB
+      get_url:
+        url: https://github.com/sharkdp/fd/releases/download/v{{ dotfiles_fd_version }}/fd_{{ dotfiles_fd_version }}_amd64.deb
+        dest: "{{ dotfiles_user_home }}/fd_{{ dotfiles_fd_version }}_amd64.deb"
+        validate_certs: yes
+        timeout: 10
+      register: dotfiles_fd_download
+
+    - name: Install fd DEB
+      apt:
+        deb: "{{ dotfiles_fd_download.dest }}"
+
+    - name: Remove fd deb file
+      file:
+        path: "{{ dotfiles_fd_download.dest }}"
+        state: absent
+
+    - name: Fix fd completion
+      get_url:
+        url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fd/_fd
+        dest: "/usr/share/zsh/vendor-completions/_fd"
+  when: "'fd' not in ansible_facts.packages"
+
+- name: Download and Install ripgrep
+  block:
+    - name: Register latest version of ripgrep
+      shell:
+        cmd: |
+          set -o pipefail
+          curl -sL https://github.com/BurntSushi/ripgrep/tags.atom | \
+          awk 'BEGIN{done=0} /releases\/tag\/[0-9\.]+/{match($0,/\/tag\/([0-9\.]+)/,m); if(done==0){ ver=m[1]; done=1; }} END{print ver}'
+        executable: /bin/bash
+      register: dotfiles_rg_version_result
+
+    - name: Define dotfiles_rg_version
+      set_fact:
+        dotfiles_rg_version: "{{ dotfiles_rg_version_result.stdout }}"
+
+    - name: Download latest rg DEB
+      get_url:
+        url: https://github.com/BurntSushi/ripgrep/releases/download/{{ dotfiles_rg_version }}/ripgrep_{{ dotfiles_rg_version }}_amd64.deb
+        dest: "{{ dotfiles_user_home }}/ripgrep_{{ dotfiles_rg_version }}_amd64.deb"
+      register: dotfiles_rg_download
+
+    - name: Install rg DEB
+      apt:
+        deb: "{{ dotfiles_rg_download.dest }}"
+
+    - name: Remove rg deb file
+      file:
+        path: "{{ dotfiles_rg_download.dest }}"
+        state: absent
+  when: "'ripgrep' not in ansible_facts.packages"
+
+- name: Create required directories
+  file:
+    path: "{{ dotfiles_user_home }}/.local/share/{{ item }}"
+    state: directory
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user }}"
+  with_items:
+    - "man/man1"
+    - "zsh/completions"
+
+- name: Download and install exa manpage
+  get_url:
+    url: "https://raw.githubusercontent.com/ogham/exa/master/contrib/man/exa.1"
+    dest: "{{ dotfiles_user_home }}/.local/share/man/man1/exa.1"
+  become_user: "{{ dotfiles_user }}"
+  become: true
+
+- name: Download and install zsh exa completion
+  get_url:
+    url: "https://raw.githubusercontent.com/ogham/exa/master/contrib/completions.zsh"
+    dest: "{{ dotfiles_user_home }}/.local/share/zsh/completions/_exa"
+  become_user: "{{ dotfiles_user }}"
+  become: true

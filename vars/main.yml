@@ -1,0 +1,24 @@
+---
+# vars file for ansible-morethandotfiles
+nvim_user: "{{ dotfiles_user }}"
+
+# do not install runtime cnofig for fzf
+nvim_fzf_bin_only: true
+# do not install runtime cnofig for fnm
+nvim_fnm_install_skip_shell: true
+# do not install runtime cnofig for pyenv
+pyenv_enable_rc: false
+# do not install runtime config for rustup
+rustup_config_user_shell: false
+nvim_cargo_crates:
+  - exa
+  - cargo-update
+  - cargo-cache
+# fonts
+nerdfonts_users:
+  - "{{ dotfiles_user }}"
+nerdfonts_fonts:
+  - fontname: 'SourceCodePro'
+  - fontname: 'FiraCode'
+  - fontname: 'Hack'
+  - fontname: 'InconsolataGo'

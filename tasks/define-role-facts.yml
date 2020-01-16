@@ -1,0 +1,24 @@
+---
+- name: Get dotfiles_user passwd database record
+  getent:
+    database: passwd
+    key: "{{ dotfiles_user }}"
+    split: ":"
+
+- name: Set {{ dotfiles_user }} home
+  set_fact:
+    dotfiles_user_home: "{{ getent_passwd[dotfiles_user][4] }}"
+
+- name: Define dotfiles_root
+  set_fact:
+    dotfiles_install_dest: "{{ dotfiles_user_home }}/.dotfiles"
+  when: dotfiles_root is not defined
+
+- name: Define dotfiles_antibody_home
+  set_fact:
+    dotfiles_antibody_home: "{{ dotfiles_user_home }}/{{ dotfiles_antibody_home_suffix }}"
+  when: dotfiles_antibody_home is not defined
+
+- name: Gather Installed Packages
+  package_facts:
+    manager: "auto"

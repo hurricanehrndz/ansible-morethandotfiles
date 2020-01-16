@@ -1,0 +1,17 @@
+---
+- name: Update repo cache
+  action: >
+    {{ ansible_pkg_mgr }} update_cache=yes
+  changed_when: false
+
+- name: Install required system packages
+  apt:
+    name: "{{ dotfiles_sys_pkgs }}"
+
+- name: Install zsh plugin manager (antibody)
+  shell:
+    cmd: |
+      set pipefail
+      curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
+    executable: /bin/bash
+    creates: /usr/local/bin/antibody

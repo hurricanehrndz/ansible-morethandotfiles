@@ -1,0 +1,32 @@
+---
+galaxy_info:
+  author: Carlos Hernandez
+  description: Role to install more than just dotfiles.
+  role_name: morethandotfiles
+
+  license: MIT
+
+  min_ansible_version: 2.8
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+
+  galaxy_tags:
+    - dotfiles
+    - development
+
+dependencies:
+  - role: hurricanehrndz.nvim_config
+    when:
+      - run_nvim_config|default(true)
+    tags:
+      - nvimrc-dependency
+      - dependencies
+  - role: hurricanehrndz.nerdfonts
+    when:
+      - run_nerdfonts|default(true)
+    tags:
+      - nerdfonts-dependency
+      - dependencies

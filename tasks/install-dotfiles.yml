@@ -1,0 +1,42 @@
+---
+- name: Clone dotfiles repo
+  git:
+    repo: https://github.com/hurricanehrndz/dotfiles.git
+    dest: "{{ dotfiles_install_dest }}"
+    version: master
+  register: git_result
+  changed_when: "git_result.after|default('after') != git_result.before|default('before')"
+
+- name: dotfiles | make ~/.config directories
+  file:
+    path: "{{ item.dir }}"
+    mode: "{{ item.mode }}"
+    state: directory
+  with_items:
+    - dir: "~/.config"
+      mode: "0700"
+    - dir: "~/.ssh"
+      mode: "0700"
+
+# clean broken links
+
+# install symlinks
+- name: dotfiles | symlink configs
+  file:
+    src: "{{ dotfiles_install_dest }}/{{ item.src }}"
+    path: "{{ dotfiles_user_home }}/{{ item.dst }}"
+    state: link
+    force: yes
+  with_items: "{{ dotfiles_symlinks  }}"
+
+# install plugins
+- name: Install zsh plugins
+  shell:
+    cmd: |
+      antibody bundle < "{{ dotfiles_user_home }}/.config/zsh/bundles.txt"
+      antibody update
+    creates: "{{ dotfiles_antibody_home }}"
+    executable: /bin/zsh
+  environment:
+    HOME: "{{ dotfiles_user_home }}"
+    ANTIBODY_HOME: "{{ dotfiles_antibody_home }}"
