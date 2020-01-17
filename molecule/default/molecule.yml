@@ -32,4 +32,3 @@ verifier:
     verbose: true
   lint:
     name: flake8
-
