@@ -3,6 +3,10 @@
   hosts: all
   vars:
     dotfiles_user: hurricanehrndz
+  pre_tasks:
+    - name: Update repo cache
+      action: >
+        {{ ansible_pkg_mgr }} update_cache=yes
   tasks:
     - name: Add test user
       user:

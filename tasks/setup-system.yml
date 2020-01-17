@@ -1,9 +1,4 @@
 ---
-- name: Update repo cache
-  action: >
-    {{ ansible_pkg_mgr }} update_cache=yes
-  changed_when: false
-
 - name: Install required system packages
   apt:
     name: "{{ dotfiles_sys_pkgs }}"
