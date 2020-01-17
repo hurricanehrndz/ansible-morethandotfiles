@@ -11,7 +11,7 @@
 
 - name: Define dotfiles_root
   set_fact:
-    dotfiles_install_dest: "{{ dotfiles_user_home }}/.dotfiles"
+    dotfiles_root: "{{ dotfiles_user_home }}/.dotfiles"
   when: dotfiles_root is not defined
 
 - name: Define dotfiles_antibody_home
