@@ -9,7 +9,7 @@
       shell:
         cmd: |
           set -o piepfaile
-          docker ps | grep -qc {{ image.name }} && \
+          docker ps | grep -qc {{ item.name }} && \
           docker commit
             -c 'CMD [\"su\", \"-l\", \"hurricanehrndz\"]'
             {{ item.name }} hurricane/morethandotfiles"
