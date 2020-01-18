@@ -6,9 +6,14 @@
   #  no_log: "{{ molecule_no_log }}"
   tasks:
     - name: Create a docker image from the container
-      command: "docker commit
-        -c 'CMD [\"su\", \"-l\", \"hurricanehrndz\"]'
-        {{ item.name }} hurricane/morethandotfiles"
+      shell:
+        cmd: |
+          set -o piepfaile
+          docker ps | grep -qc {{ image.name }} && \
+          docker commit
+            -c 'CMD [\"su\", \"-l\", \"hurricanehrndz\"]'
+            {{ item.name }} hurricane/morethandotfiles"
+        executable: /bin/bash
       with_items: "{{ molecule_yml.platforms }}"
       loop_control:
         label: "{{ item.name }}"
