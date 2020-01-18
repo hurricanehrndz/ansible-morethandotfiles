@@ -20,6 +20,11 @@ script:
 - molecule test -s $MOLECULE_SCENARIO
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+deploy:
+  provider: script
+  script: bash .ci/docker_push
+  on:
+    branch: master
 env:
   global:
   - secure: gSQXLp4K4RahK3XBhilFrwHaY53s1xCRmHZrD7NxmuDejj1EmNjQmBIjeWMguUDD9HpjyrdA++S8gFMVSDoLAYBJwP9AUZmk3z+dohQTC0Az1jQvt/Rb3qh4ZeZOEFTIfQsTdxLFltCRU+eyhf/UovvMD9rHB4RkU4f7MAiX1GBl1iLtLgf8vxyTiwmEeQ6aGxqSNjoNhR2Tx+RaWqk/E6MNch7VEq8YennZCSUPSR0quNtZ6vTNJNzZMjAR7SMPbmMZoj9LyKQmq+NAKdP02fB0vy61Sd6ovs2eI1F+L5wA30j6J2mPSOni9Uy9QlfVnbd/qll9pUlBfAMejKrUTQrDElkySr14BvYob0yw47legM0RFtgqNLR+5DF7d+iYM2krx12OXYYtYDTiLMFlKfKlFUHo9cGH5xMGQtzdPU+mnaB7VvIbpYJ38P1y6eXNN0a0t6H5SxmRLTXamHnQQSGYPbZmvg4q1K87ZoOPxFOxpz4VSwQsFnhFANOawg6/T5FimDWoYDAJz1bsttxQPXFW6I3rKjs5UynoAW0emncGx89sAX9jc9HC6Mn9aLgLALH8VXHN/Fdu1loEUBnSvH1T+WNEDb/XRACWj9LtUl6Zu7QrOe43tSvWgY/3FVsEIFVMoedzknBRSKuUJUSwxu6wEja78r57AlBO1OC86+M=
