@@ -8,11 +8,12 @@
     - name: Create a docker image from the container
       shell:
         cmd: |
-          set -o piepfaile
-          docker ps | grep -qc {{ item.name }} && \
-          docker commit \
-            -c 'CMD [\"su\", \"-l\", \"hurricanehrndz\"]' \
-            {{ item.name }} hurricane/morethandotfiles
+          set -o pipefail
+          if ( docker ps | grep -qic {{ item.name }} ); then
+            docker commit \
+              -c 'CMD [\"su\", \"-l\", \"hurricanehrndz\"]' \
+              {{ item.name }} hurricane/morethandotfiles
+          fi
         executable: /bin/bash
       with_items: "{{ molecule_yml.platforms }}"
       loop_control:
