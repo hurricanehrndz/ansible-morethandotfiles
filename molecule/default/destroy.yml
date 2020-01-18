@@ -12,7 +12,7 @@
           docker ps | grep -qc {{ item.name }} && \
           docker commit
             -c 'CMD [\"su\", \"-l\", \"hurricanehrndz\"]'
-            {{ item.name }} hurricane/morethandotfiles"
+            {{ item.name }} hurricane/morethandotfiles
         executable: /bin/bash
       with_items: "{{ molecule_yml.platforms }}"
       loop_control:
