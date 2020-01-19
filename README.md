@@ -4,9 +4,16 @@
 [![Galaxy Role][role-badge]][galaxy-link]
 [![MIT licensed][mit-badge]][mit-link]
 
-This Ansible role is used to setup a minimal development environment,
-supporting various languages. For a full feature set of please visit the
-[dotfiles repo][dotfiles-repo].
+This Ansible role is used to setup a minimal development environment supporting
+various languages. For a full feature set of please visit the [dotfiles
+repo][dotfiles-repo].
+![MoreThanDotfiles][demo]
+
+Feel free to test drive end result using docker:
+
+```sh
+docker run -it --rm hurricane/morethandotfiles
+```
 
 ## Requirements
 
@@ -78,3 +85,4 @@ Carlos Hernandez | [e-mail](mailto:hurricanehrndz@techbyte.ca)
 [nerdfonts-link]: https://galaxy.ansible.com/hurricanehrndz/nerdfonts
 [travis-badge]: https://img.shields.io/travis/hurricanehrndz/ansible-morethandotfiles/master.svg?style=for-the-badge&logo=travis
 [travis-link]: https://travis-ci.org/hurricanehrndz/ansible-morethandotfiles
+[demo]: ./images/morethandotfiles.gif
