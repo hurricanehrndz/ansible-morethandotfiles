@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  #  no_log: "{{ molecule_no_log }}"
+  no_log: "{{ molecule_no_log }}"
   tasks:
     - name: Create a docker image from the container
       shell:
@@ -11,7 +11,7 @@
           set -o pipefail
           if ( docker ps | grep -qic {{ item.name }} ); then
             docker commit \
-              -c 'CMD [\"su\", \"-l\", \"hurricanehrndz\"]' \
+              -c 'CMD ["su", "-l", "hurricanehrndz"]' \
               {{ item.name }} hurricane/morethandotfiles
           fi
         executable: /bin/bash
