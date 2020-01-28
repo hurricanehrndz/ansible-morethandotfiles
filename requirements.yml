@@ -1,3 +1,5 @@
 ---
 - src: hurricanehrndz.nvim_config
+  version: master
 - src: hurricanehrndz.nerdfonts
+  version: master
