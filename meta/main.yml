@@ -19,12 +19,14 @@ galaxy_info:
 
 dependencies:
   - role: hurricanehrndz.nvim_config
+    version: master
     when:
       - run_nvim_config|default(true)
     tags:
       - nvimrc-dependency
       - dependencies
   - role: hurricanehrndz.nerdfonts
+    version: master
     when:
       - run_nerdfonts|default(true)
     tags:
