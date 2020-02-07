@@ -7,7 +7,7 @@
   register: dotfiles_git_result
   changed_when: "dotfiles_git_result.after|default('after') != dotfiles_git_result.before|default('before')"
 
-- name: dotfiles | make ~/.config directories
+- name: dotfiles | make needed directories
   file:
     path: "{{ item.dir }}"
     mode: "{{ item.mode }}"
@@ -16,6 +16,8 @@
     - dir: "~/.config"
       mode: "0700"
     - dir: "~/.ssh"
+      mode: "0700"
+    - dir: "~/.gnupg"
       mode: "0700"
 
 # clean broken links
