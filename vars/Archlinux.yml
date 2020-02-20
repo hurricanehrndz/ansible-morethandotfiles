@@ -1,0 +1,8 @@
+---
+dotfiles_sys_pkgs:
+  - zsh
+  - git
+  - curl
+  - gawk
+  - grc
+  - time

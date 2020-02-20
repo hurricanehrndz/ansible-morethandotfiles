@@ -12,7 +12,7 @@
           if ( docker ps | grep -qic {{ item.name }} ); then
             docker commit \
               -c 'CMD ["su", "-l", "hurricanehrndz"]' \
-              {{ item.name }} hurricane/morethandotfiles
+             {{ item.name }} hurricane/morethandotfiles:{{ lookup('env', 'MOLECULE_DISTRIBUTION')) }}
           fi
         executable: /bin/bash
       with_items: "{{ molecule_yml.platforms }}"
