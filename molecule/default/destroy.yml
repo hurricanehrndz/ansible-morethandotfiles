@@ -11,8 +11,8 @@
           set -o pipefail
           if ( docker ps | grep -qic {{ item.name }} ); then
             docker commit \
-              -c 'CMD ["su", "-l", "hurricanehrndz"]' \
-             {{ item.name }} hurricane/morethandotfiles:{{ lookup('env', 'MOLECULE_DISTRIBUTION')) }}
+              {{ item.name }} \
+              hurricane/morethandotfiles:{{ item.distribution|default(lookup('env','MOLECULE_DISTRIBUTION') or 'ubuntu18') }}
           fi
         executable: /bin/bash
       with_items: "{{ molecule_yml.platforms }}"
@@ -35,7 +35,6 @@
       with_items: "{{ molecule_yml.platforms }}"
       loop_control:
         label: "{{ item.name }}"
-      no_log: false
       async: 7200
       poll: 0
 
@@ -59,4 +58,3 @@
       with_items: "{{ molecule_yml.platforms | molecule_get_docker_networks }}"
       loop_control:
         label: "{{ item }}"
-      no_log: false
