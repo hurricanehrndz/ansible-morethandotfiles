@@ -35,7 +35,6 @@
       get_url:
         url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fd/_fd
         dest: "/usr/share/zsh/vendor-completions/_fd"
-  when: "'fd' not in ansible_facts.packages"
 
 - name: Download and Install ripgrep
   block:
@@ -66,7 +65,6 @@
       file:
         path: "{{ dotfiles_rg_download.dest }}"
         state: absent
-  when: "'ripgrep' not in ansible_facts.packages"
 
 - name: Create required directories
   file:

@@ -1,8 +1,12 @@
 ---
 dotfiles_sys_pkgs:
-  - zsh
-  - git
+  - base-devel
   - curl
+  - exa
+  - fd
   - gawk
+  - git
   - grc
+  - ripgrep
   - time
+  - zsh

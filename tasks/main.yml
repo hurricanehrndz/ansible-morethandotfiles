@@ -20,3 +20,4 @@
 
 - name: Install other tools
   include_tasks: "install-other-tools.yml"
+  when: ansible_os_family == 'Debian'

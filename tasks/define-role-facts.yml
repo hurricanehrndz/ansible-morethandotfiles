@@ -18,7 +18,3 @@
   set_fact:
     dotfiles_antibody_home: "{{ dotfiles_user_home }}/{{ dotfiles_antibody_home_suffix }}"
   when: dotfiles_antibody_home is not defined
-
-- name: Gather Installed Packages
-  package_facts:
-    manager: "auto"
