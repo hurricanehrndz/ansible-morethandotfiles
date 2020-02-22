@@ -18,7 +18,6 @@
       with_items: "{{ molecule_yml.platforms }}"
       loop_control:
         label: "{{ item.name }}"
-      when: "'ubuntu' in item.name"
 
     - name: Destroy molecule instance(s)
       docker_container:
