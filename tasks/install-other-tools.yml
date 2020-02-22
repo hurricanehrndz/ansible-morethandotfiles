@@ -1,4 +1,9 @@
 ---
+- name: Register stat for fd
+  stat:
+    path: "/usr/bin/fd"
+  register: _dotfiles_fd
+
 - name: Download and Install fd
   block:
     - name: Register latest version of fd
@@ -35,6 +40,12 @@
       get_url:
         url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fd/_fd
         dest: "/usr/share/zsh/vendor-completions/_fd"
+  when: not _dotfiles_fd.stat.exists
+
+- name: Register stat for ripgrep
+  stat:
+    path: "/usr/bin/rg"
+  register: _dotfiles_rg
 
 - name: Download and Install ripgrep
   block:
@@ -65,6 +76,7 @@
       file:
         path: "{{ dotfiles_rg_download.dest }}"
         state: absent
+  when: not _dotfiles_rg.stat.exists
 
 - name: Create required directories
   file:
