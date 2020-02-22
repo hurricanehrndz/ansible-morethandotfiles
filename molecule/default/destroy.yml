@@ -13,6 +13,11 @@
             docker commit \
               {{ item.name }} \
               hurricane/morethandotfiles:{{ item.distribution|default(lookup('env','MOLECULE_DISTRIBUTION') or 'ubuntu18') }}
+            if [[ $MOLECULE_DISTRIBUTION =~ "ubuntu" ]]; then
+              docker tag \
+                hurricane/morethandotfiles:{{ item.distribution|default(lookup('env','MOLECULE_DISTRIBUTION') or 'ubuntu18') }} \
+                hurricane/morethandotfiles:latest
+            fi
           fi
         executable: /bin/bash
       with_items: "{{ molecule_yml.platforms }}"
