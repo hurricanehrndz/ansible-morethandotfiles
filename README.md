@@ -12,7 +12,7 @@ repo][dotfiles-repo].
 Feel free to test drive end result using docker:
 
 ```sh
-docker run -it --rm hurricane/morethandotfiles
+docker run -it --rm hurricane/morethandotfiles:ubuntu18
 ```
 
 ## Requirements
