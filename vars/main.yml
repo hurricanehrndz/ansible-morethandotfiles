@@ -10,7 +10,7 @@ nvim_fnm_install_skip_shell: true
 pyenv_enable_rc: false
 # do not install runtime config for rustup
 rustup_config_user_shell: false
-nvim_cargo_crates: {{ dotfiles_cargo_crates|list }}
+nvim_cargo_crates: "{{ dotfiles_cargo_crates|list }}"
 
 # fonts
 nerdfonts_users:
