@@ -18,6 +18,6 @@
   become: true
   become_user: "{{ dotfiles_user }}"
 
-- name: Install other tools
-  include_tasks: "install-other-tools.yml"
-  when: ansible_os_family == 'Debian'
+- name: Distro specific tools and tweaks
+  import_tasks: "{{ ansible_os_family }}.yml"
+  become: true

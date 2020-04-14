@@ -1,0 +1,14 @@
+---
+- name: dotfiles | Symlink manjaro specific
+  file:
+    src: "{{ dotfiles_root }}/xprofile"
+    path: "{{ dotfiles_user_home }}/.xprofile"
+    state: link
+    force: yes
+
+- name: Setup pinentry program
+  file:
+    src: "/usr/bin/pinentry-qt"
+    path: "/usr/bin/pinentry"
+    state: link
+    force: yes

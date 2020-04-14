@@ -1,5 +1,5 @@
 ---
-- name: Clone dotfiles repo
+- name: dotfiles | Clone dotfiles repo
   git:
     repo: https://github.com/hurricanehrndz/dotfiles.git
     dest: "{{ dotfiles_root }}"
@@ -7,7 +7,7 @@
   register: dotfiles_git_result
   changed_when: "dotfiles_git_result.after|default('after') != dotfiles_git_result.before|default('before')"
 
-- name: dotfiles | make needed directories
+- name: dotfiles | Make needed directories
   file:
     path: "{{ item.dir }}"
     mode: "{{ item.mode }}"
@@ -23,7 +23,7 @@
 # clean broken links
 
 # install symlinks
-- name: dotfiles | symlink configs
+- name: dotfiles | Symlink configs
   file:
     src: "{{ dotfiles_root }}/{{ item.src }}"
     path: "{{ dotfiles_user_home }}/{{ item.dst }}"
@@ -32,7 +32,7 @@
   with_items: "{{ dotfiles_symlinks  }}"
 
 # install plugins
-- name: Install zsh plugins
+- name: dotfiles | Install zsh plugins
   shell:
     cmd: |
       antibody bundle < "{{ dotfiles_user_home }}/.config/zsh/bundles.txt"
