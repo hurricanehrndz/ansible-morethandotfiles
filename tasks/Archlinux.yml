@@ -6,6 +6,7 @@
     state: link
     force: yes
   become: true
+  become_user: "{{ dotfiles_user }}"
 
 - name: Setup pinentry program
   file:
@@ -14,3 +15,20 @@
     state: link
     force: yes
   become: true
+
+- name: Enable pcscd.socket
+  systemd:
+    name: pcscd.socket
+    enabled: true
+  become: true
+
+- name: Enable gpg sockets
+  systemd:
+    name: {{ item }}
+    enabled: true
+    user: true
+  with_items:
+    - gpg-agent-browser.socket
+    - gpg-agent-extra.socket
+    - gpg-agent.socket
+    - gpg-aget-ssh.socket
