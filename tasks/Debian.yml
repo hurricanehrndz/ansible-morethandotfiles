@@ -30,6 +30,7 @@
     - name: Install fd DEB
       apt:
         deb: "{{ dotfiles_fd_download.dest }}"
+      become: true
 
     - name: Remove fd deb file
       file:
@@ -71,6 +72,7 @@
     - name: Install rg DEB
       apt:
         deb: "{{ dotfiles_rg_download.dest }}"
+      become: true
 
     - name: Remove rg deb file
       file:
@@ -84,6 +86,7 @@
     state: directory
     owner: "{{ dotfiles_user }}"
     group: "{{ dotfiles_user }}"
+  become: true
   with_items:
     - "man/man1"
     - "zsh/completions"

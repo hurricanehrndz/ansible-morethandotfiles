@@ -5,6 +5,7 @@
     path: "{{ dotfiles_user_home }}/.xprofile"
     state: link
     force: yes
+  become: true
 
 - name: Setup pinentry program
   file:
@@ -12,3 +13,4 @@
     path: "/usr/bin/pinentry"
     state: link
     force: yes
+  become: true

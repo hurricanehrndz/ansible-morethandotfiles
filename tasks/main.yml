@@ -19,5 +19,4 @@
   become_user: "{{ dotfiles_user }}"
 
 - name: Distro specific tools and tweaks
-  import_tasks: "{{ ansible_os_family }}.yml"
-  become: true
+  include_tasks: "{{ ansible_os_family }}.yml"
