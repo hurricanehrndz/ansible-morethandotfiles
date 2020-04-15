@@ -24,7 +24,7 @@
 
 - name: Enable gpg sockets
   systemd:
-    name: {{ item }}
+    name: "{{ item }}"
     enabled: true
     user: true
   with_items:
