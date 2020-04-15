@@ -10,3 +10,4 @@ dotfiles_sys_pkgs:
   - ripgrep
   - time
   - zsh
+  - plasma-gpg-agent
