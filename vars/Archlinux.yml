@@ -11,3 +11,5 @@ dotfiles_sys_pkgs:
   - time
   - zsh
   - plasma-gpg-agent
+  - ccid
+  - pcsclite
