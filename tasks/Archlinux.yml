@@ -21,25 +21,3 @@
     name: pcscd.socket
     enabled: true
   become: true
-
-- name: Make sockets.target.wants
-  file:
-    path: "{{ dotfiles_user_home  }}/.config/systemd/user/sockets.target.wants"
-    state: directory
-    mode: 0755
-    owner: "{{ dotfiles_user }}"
-    group: "{{ dotfiles_user }}"
-
-- name: Enable gpg sockets
-  file:
-    src: "/usr/lib/systemd/user/{{ item }}"
-    path: "{{ dotfiles_user_home  }}/.config/systemd/user/sockets.target.wants/{{ item }}"
-    state: link
-    force: yes
-    owner: "{{ dotfiles_user }}"
-    group: "{{ dotfiles_user }}"
-  with_items:
-    - gpg-agent-browser.socket
-    - gpg-agent-extra.socket
-    - gpg-agent.socket
-    - gpg-agent-ssh.socket
