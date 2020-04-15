@@ -31,4 +31,4 @@
     - gpg-agent-browser.socket
     - gpg-agent-extra.socket
     - gpg-agent.socket
-    - gpg-aget-ssh.socket
+    - gpg-agent-ssh.socket
