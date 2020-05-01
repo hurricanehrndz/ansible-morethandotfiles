@@ -1,8 +1,8 @@
 ---
 - name: dotfiles | Symlink manjaro specific
   file:
-    src: "{{ dotfiles_root }}/xprofile"
-    path: "{{ dotfiles_user_home }}/.xprofile"
+    src: "{{ dotfiles_root }}/pam_environment"
+    path: "{{ dotfiles_user_home }}/.pam_environment"
     state: link
     force: yes
   become: true
