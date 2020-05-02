@@ -1,7 +1,7 @@
 ---
 # vars file for ansible-morethandotfiles
 nvim_user: "{{ dotfiles_user }}"
-
+nvim_python_ver: "{{ dotfils_python_ver }}"
 # do not install runtime cnofig for fzf
 nvim_fzf_bin_only: true
 # do not install runtime cnofig for fnm

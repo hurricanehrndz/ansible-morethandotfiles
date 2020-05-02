@@ -10,6 +10,8 @@ dotfiles_cargo_crates:
   - cargo-update
   - cargo-cache
 
+dotfiles_python_ver: 3.8.2
+
 dotfiles_symlinks:
   - src: "config/zsh/zshenv"
     dst: ".zshenv"
