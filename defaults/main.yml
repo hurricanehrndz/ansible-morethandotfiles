@@ -12,6 +12,8 @@ dotfiles_cargo_crates:
 
 dotfiles_python_ver: 3.8.2
 
+dotfiles_mono_fonts: true
+
 dotfiles_symlinks:
   - src: "config/zsh/zshenv"
     dst: ".zshenv"

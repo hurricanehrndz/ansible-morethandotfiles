@@ -20,3 +20,4 @@ nerdfonts_fonts:
   - fontname: 'FiraCode'
   - fontname: 'Hack'
   - fontname: 'InconsolataGo'
+nerdfonts_mono: true
