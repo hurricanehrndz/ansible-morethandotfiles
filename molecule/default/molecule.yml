@@ -15,6 +15,8 @@ platforms:
     image: "${MOLECULE_IMAGE:-quay.io/samdoran/ubuntu18-ansible}"
     command: ${MOLECULE_COMMAND:-""}
     dockerfile: ../resources/playbooks/Dockerfile.j2
+    tmpfs:
+      - /run
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       - '/dev/fuse:/dev/fuse'
