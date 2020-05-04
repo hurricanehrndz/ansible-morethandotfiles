@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+if [[ -z $MOLECULE_SCENARIO ]]; then
+    source "$DIR/manjaro-settings"
+fi
+
+molecule lint -s $MOLECULE_SCENARIO \
+ && molecule converge -s $MOLECULE_SCENARIO \
+ && molecule idempotence -s $MOLECULE_SCENARIO \
+ && molecule verify -s $MOLECULE_SCENARIO

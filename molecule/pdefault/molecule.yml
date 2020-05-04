@@ -4,7 +4,7 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: docker
+  name: podman
 lint: |
     yamllint .
     ansible-lint .
@@ -17,9 +17,6 @@ platforms:
     dockerfile: ../resources/playbooks/Dockerfile.j2
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/dev/fuse:/dev/fuse'
-      - '/dev/loop-control:/dev/loop-control'
-    privileged: true
     pre_build_image: false
 provisioner:
   name: ansible

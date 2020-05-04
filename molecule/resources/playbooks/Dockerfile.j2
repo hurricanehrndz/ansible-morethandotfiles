@@ -42,7 +42,7 @@ RUN systemctl mask dev-mqueue.mount dev-hugepages.mount \
       apt-get update && apt-get upgrade -y && apt-get install -y sudo bash udev; \
     fi \
  && if [ -x "$(command -v pacman)" ]; then \
-      pacman -S -y; \
+      pacman -Syyu --noconfirm; \
       pacman -S --noconfirm ansible sudo; \
       systemctl enable systemd-udevd.service; \
     fi
