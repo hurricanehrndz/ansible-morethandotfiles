@@ -7,3 +7,6 @@ dotfiles_sys_pkgs:
   - gawk
   - grc
   - time
+  - scdaemon
+  - pcscd
+  - libpcsclite1

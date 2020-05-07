@@ -1,7 +1,14 @@
 ---
+- name: Install rust tools if avaible
+  apt:
+    name:
+      - fd-find
+      - ripgrep
+  ignore_errors: true
+
 - name: Register stat for fd
   stat:
-    path: "/usr/bin/fd"
+    path: "/usr/share/zsh/vendor-completions/_fd"
   register: _dotfiles_fd
 
 - name: Download and Install fd
@@ -104,3 +111,25 @@
     dest: "{{ dotfiles_user_home }}/.local/share/zsh/completions/_exa"
   become_user: "{{ dotfiles_user }}"
   become: true
+
+- name: Get libpcsclite1 library
+  shell:
+    cmd: |
+      set -o pipefail
+      dpkg -L libpcsclite1 | awk /libpcsclite.so.1/
+    executable: /bin/bash
+  register: libpcsclite_content
+  changed_when: false
+
+- name: Define libpcsclite1_path
+  set_fact:
+    libpcsclite1_path: "{{ libpcsclite_content.stdout_lines[0] }}"
+
+- name: Install scdaemon.conf
+  template:
+    src: scdaemon.j2
+    dest: "{{ dotfiles_user_home }}/.gnupg/scdaemon.conf"
+    mode: 0644
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user }}"
+    force: yes
