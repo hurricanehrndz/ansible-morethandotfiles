@@ -107,7 +107,7 @@
 
 - name: Download and install zsh exa completion
   get_url:
-    url: "https://raw.githubusercontent.com/ogham/exa/master/contrib/completions.zsh"
+    url: "https://raw.githubusercontent.com/ogham/exa/master/completions/completions.zsh"
     dest: "{{ dotfiles_user_home }}/.local/share/zsh/completions/_exa"
   become_user: "{{ dotfiles_user }}"
   become: true
