@@ -100,7 +100,7 @@
 
 - name: Download and install exa manpage
   get_url:
-    url: "https://raw.githubusercontent.com/ogham/exa/master/contrib/man/exa.1"
+    url: "https://raw.githubusercontent.com/ogham/exa/master/man/exa.1.md"
     dest: "{{ dotfiles_user_home }}/.local/share/man/man1/exa.1"
   become_user: "{{ dotfiles_user }}"
   become: true
