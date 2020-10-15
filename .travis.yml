@@ -1,4 +1,4 @@
-dist: bionic
+dist: focal
 matrix:
   fast_finish: true
   include:
@@ -15,10 +15,6 @@ matrix:
           channel: stable
 install:
 - sudo apt update
-- |
-  if [ -s "/var/lib/lxd/unix.socket" ]; then
-    sudo /snap/bin/lxd.migrate --yes
-  fi
 - sudo /snap/bin/lxd waitready
 - sudo /snap/bin/lxd init --auto
 - sudo chgrp travis /var/snap/lxd/common/lxd/unix.socket
