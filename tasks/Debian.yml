@@ -93,6 +93,7 @@
     state: directory
     owner: "{{ dotfiles_user }}"
     group: "{{ dotfiles_user }}"
+    mode: 0755
   become: true
   with_items:
     - "man/man1"
