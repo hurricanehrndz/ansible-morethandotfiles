@@ -1,4 +1,0 @@
-#!/bin/bash -xe
-
-echo "$DOCKER_PASSWORD" | docker login -u hurricane --password-stdin
-docker push hurricane/morethandotfiles:$MOLECULE_DISTRIBUTION

@@ -4,31 +4,23 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: docker
+  name: lxd
 lint: |
     yamllint .
     ansible-lint .
     ansible-lint molecule/resources/playbooks/converge.yml
     flake8
 platforms:
-  - name: "ansible-morethandotfiles_${MOLECULE_DISTRIBUTION:-ubuntu2004}"
-    image: "${MOLECULE_IMAGE:-geerlingguy/docker-ubuntu2004-ansible}"
-    command: ${MOLECULE_COMMAND:-""}
-    dockerfile: ../resources/playbooks/Dockerfile.j2
-    tmpfs:
-      - /run
-    volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/dev/fuse:/dev/fuse'
-      - '/dev/loop-control:/dev/loop-control'
-    privileged: true
-    pre_build_image: false
+  - name: "morethandotfiles-${MOLECULE_DISTRIBUTION:-ubuntu-focal}"
+    alias: "${MOLECULE_IMAGE:-ubuntu/focal}"
 provisioner:
   name: ansible
   options:
     vvv: true
   playbooks:
+    create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
+    destroy: ../resources/playbooks/destroy.yml
 verifier:
   name: testinfra
   directory: ../resources/tests/

@@ -7,10 +7,21 @@ matrix:
     - ANSIBLE='ansible>=2.8'
     - MOLECULE_SCENARIO="default"
     - MOLECULE_DISTRIBUTION="ubuntu18"
-    services: docker
     language: python
     python: '3.8'
+    addons:
+      snaps:
+        - name: lxd
+          channel: stable
 install:
+- sudo apt update
+- |
+  if [ -s "/var/lib/lxd/unix.socket" ]; then
+    sudo /snap/bin/lxd.migrate --yes
+  fi
+- sudo /snap/bin/lxd waitready
+- sudo /snap/bin/lxd init --auto
+- sudo chgrp travis /var/snap/lxd/common/lxd/unix.socket
 - pip3 install -U pip
 - pip3 install "$ANSIBLE" testinfra molecule docker flake8 ansible-lint yamllint
 script:
@@ -20,8 +31,3 @@ script:
 - molecule test -s $MOLECULE_SCENARIO
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
-after_succes:
-  - bash -xe .ci/docker_push
-env:
-  global:
-    secure: Z+DhbKuPqI6w4s6Re6ZHN6PPLIMQ8uMx/9aNwRjWSVF0tMP+MKBIRJPGrbW2s1Nj4qQCDH8OKNMvp6FFdIU30OmxdoyTOarZf+JupdH4zasvUPZxDbCj9uM/Rk/fgy9TWgMskWGyA1OpbH/9ztn8PX3ds3c/f+0KzZFq9NF91LAHjj3ByU4Km0eSZeHY3v4nxMNbqo4G8ILKeTiS5NbKvFLi1JyHFg4gHwzV3B0s01+NXE4NhRATL37t3HiuZH21uh9BJcihbvMYDYpZnq6DH8tMfF2LB0o7xHHrNglMDuSHmZj3yREAKXjvEorV52Y1jNanusRTBa1P8/FXubd7LnJ/2oaeqNwX/ZyAoTSa3vCdaC+zUIIyMwE4rcq0maj6AoLbx35ASnplsmTRkhfqa6bHq/Stjq5ozwVUor5lM6gd9894Lm0A3H9uIcKD7as4q7XWSK6d718Tr1aA4Bx2kKEJbALOj4zCTRCa3ZNPRtwidpsugxJZ0WfjgS9EuudWjihUS6Y6MwgHuEuQwVntAMKWntybOjGSzlTm0g/JlwGCLVxTtADhnwO+RSQWbIsuA+xMdmknI+D49OQF65smeCJIZS1CGwUu52mpa2lVuI7SHynd2xBnuDTZq1BODtuFEhs2HLGlBUvROM3zok0YNMW1+ZRe4zR+S7J8Dj5/0dE=

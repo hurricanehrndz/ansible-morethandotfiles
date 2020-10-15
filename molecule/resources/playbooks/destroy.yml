@@ -3,62 +3,11 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: "{{ molecule_no_log }}"
+  no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
   tasks:
-    - name: Create a docker image from the container
-      shell:
-        cmd: |
-          set -o pipefail
-          if ( docker ps | grep -qic {{ item.name }} ); then
-            docker commit \
-              {{ item.name }} \
-              hurricane/morethandotfiles:{{ item.distribution|default(lookup('env','MOLECULE_DISTRIBUTION') or 'ubuntu18') }}
-            if [[ $MOLECULE_DISTRIBUTION =~ "ubuntu" ]]; then
-              docker tag \
-                hurricane/morethandotfiles:{{ item.distribution|default(lookup('env','MOLECULE_DISTRIBUTION') or 'ubuntu18') }} \
-                hurricane/morethandotfiles:latest
-            fi
-          fi
-        executable: /bin/bash
-      with_items: "{{ molecule_yml.platforms }}"
-      loop_control:
-        label: "{{ item.name }}"
-
     - name: Destroy molecule instance(s)
-      docker_container:
+      lxd_container:
         name: "{{ item.name }}"
-        docker_host: "{{ item.docker_host | default(lookup('env', 'DOCKER_HOST') or 'unix://var/run/docker.sock') }}"
-        cacert_path: "{{ item.cacert_path | default((lookup('env', 'DOCKER_CERT_PATH') + '/ca.pem') if lookup('env', 'DOCKER_CERT_PATH') else omit) }}"
-        cert_path: "{{ item.cert_path | default((lookup('env', 'DOCKER_CERT_PATH') + '/cert.pem')  if lookup('env', 'DOCKER_CERT_PATH') else omit) }}"
-        key_path: "{{ item.key_path | default((lookup('env', 'DOCKER_CERT_PATH') + '/key.pem') if lookup('env', 'DOCKER_CERT_PATH') else omit) }}"
-        tls_verify: "{{ item.tls_verify | default(lookup('env', 'DOCKER_TLS_VERIFY')) or false }}"
         state: absent
-        force_kill: "{{ item.force_kill | default(true) }}"
-        keep_volumes: "{{ item.keep_volumes | default(true) }}"
-      register: server
+        force_stop: "{{ item.force_stop | default(true) }}"
       with_items: "{{ molecule_yml.platforms }}"
-      loop_control:
-        label: "{{ item.name }}"
-      async: 7200
-      poll: 0
-
-    - name: Wait for instance(s) deletion to complete
-      async_status:
-        jid: "{{ item.ansible_job_id }}"
-      register: docker_jobs
-      until: docker_jobs.finished
-      retries: 300
-      with_items: "{{ server.results }}"
-
-    - name: Delete docker network(s)
-      docker_network:
-        name: "{{ item }}"
-        docker_host: "{{ item.docker_host | default(lookup('env', 'DOCKER_HOST') or 'unix://var/run/docker.sock') }}"
-        cacert_path: "{{ item.cacert_path | default((lookup('env', 'DOCKER_CERT_PATH') + '/ca.pem') if lookup('env', 'DOCKER_CERT_PATH') else omit) }}"
-        cert_path: "{{ item.cert_path | default((lookup('env', 'DOCKER_CERT_PATH') + '/cert.pem')  if lookup('env', 'DOCKER_CERT_PATH') else omit) }}"
-        key_path: "{{ item.key_path | default((lookup('env', 'DOCKER_CERT_PATH') + '/key.pem') if lookup('env', 'DOCKER_CERT_PATH') else omit) }}"
-        tls_verify: "{{ item.tls_verify | default(lookup('env', 'DOCKER_TLS_VERIFY')) or false }}"
-        state: absent
-      with_items: "{{ molecule_yml.platforms | molecule_get_docker_networks }}"
-      loop_control:
-        label: "{{ item }}"
