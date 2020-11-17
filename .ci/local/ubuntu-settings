@@ -1,7 +1,0 @@
-#!/bin/bash
-
-export MOLECULE_IMAGE="ubuntu/focal"
-export MOLECULE_DISTRIBUTION="ubuntu-focal"
-export MOLECULE_SCENARIO="default"
-# https://github.com/ansible/ansible/issues/67004
-export ANSIBLE_PIPELINING=false
