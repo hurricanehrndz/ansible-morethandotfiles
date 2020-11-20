@@ -2,38 +2,16 @@
 # defaults file for ansible-morethandotfiles
 dotfiles_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
 
-# PREFIX is dotfiles_user_home
-dotfiles_antibody_home_suffix: ".local/share/antibody"
-
 dotfiles_cargo_crates:
-  - exa
-  - cargo-update
+  - bottom
   - cargo-cache
+  - cargo-update
+  - du-dust
+  - procs
+  - sheldon
+  - starship
+  - tealdeer
 
-dotfiles_python_ver: 3.8.2
+dotfiles_python_ver: 3.9.0
 
 dotfiles_mono_fonts: true
-
-dotfiles_symlinks:
-  - src: "config/zsh/zshenv"
-    dst: ".zshenv"
-  - src: "config/zsh"
-    dst: ".config/zsh"
-  - src: "config/powershell"
-    dst: ".config/powershell"
-  - src: "gitconfig"
-    dst: ".gitconfig"
-  - src: "gitignore_global"
-    dst: ".gitignore_global"
-  - src: "dir_colors"
-    dst: ".dir_colors"
-  - src: "ssh/config"
-    dst: ".ssh/config"
-  - src: "gnupg/gpg-agent.conf"
-    dst: ".gnupg/gpg-agent.conf"
-  - src: "gnupg/gpg.conf"
-    dst: ".gnupg/gpg.conf"
-  - src: "gnupg/sshcontrol"
-    dst: ".gnupg/sshcontrol"
-  - src: "nvmrc"
-    dst: ".nvmrc"

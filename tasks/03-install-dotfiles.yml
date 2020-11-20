@@ -21,24 +21,10 @@
       mode: "0700"
 
 # clean broken links
-
-# install symlinks
-- name: dotfiles | Symlink configs
-  file:
-    src: "{{ dotfiles_root }}/{{ item.src }}"
-    path: "{{ dotfiles_user_home }}/{{ item.dst }}"
-    state: link
-    force: yes
-  with_items: "{{ dotfiles_symlinks  }}"
-
-# install plugins
-- name: dotfiles | Install zsh plugins
+- name: dotfiles | Install dotfiles via dotbot
   shell:
-    cmd: |
-      antibody bundle < "{{ dotfiles_user_home }}/.config/zsh/bundles.txt"
-      antibody update
-    creates: "{{ dotfiles_antibody_home }}"
-    executable: /bin/zsh
+    cmd: ./install
+    creates: "{{ dotfiles_user_home }}/.config/zsh"
+    chdir: "{{ dotfiles_root }}"
   environment:
     HOME: "{{ dotfiles_user_home }}"
-    ANTIBODY_HOME: "{{ dotfiles_antibody_home }}"

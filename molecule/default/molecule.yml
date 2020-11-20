@@ -8,15 +8,12 @@ driver:
 lint: |
     yamllint .
     ansible-lint .
-    ansible-lint molecule/resources/playbooks/converge.yml
     flake8
 platforms:
-  - name: "morethandotfiles-${MOLECULE_DISTRIBUTION:-ubuntu-focal}"
-    alias: "${MOLECULE_IMAGE:-ubuntu/focal}"
+  - name: "morethandotfiles-${MLDISTRO:-ubuntu}"
+    alias: "${MLIMG:-ubuntu/focal}"
 provisioner:
   name: ansible
-  options:
-    vvv: true
   playbooks:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml

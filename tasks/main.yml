@@ -7,16 +7,17 @@
     - default.yml
 
 - name: Define role facts
-  include_tasks: "define-role-facts.yml"
+  include_tasks: "01-define-role-facts.yml"
 
-# Install shell, and plugin manager
+# Install shell and required system packages
 - name: Install system prerequisites
-  include_tasks: "setup-system.yml"
+  include_tasks: "02-setup-system.yml"
 
+# Clone down dotfiles
 - name: Install dotfiles
-  import_tasks: "install-dotfiles.yml"
+  import_tasks: "03-install-dotfiles.yml"
   become: true
   become_user: "{{ dotfiles_user }}"
 
-- name: Distro specific tools and tweaks
-  include_tasks: "{{ ansible_os_family }}.yml"
+# - name: Distro specific tools and tweaks
+#   include_tasks: "{{ ansible_os_family }}.yml"

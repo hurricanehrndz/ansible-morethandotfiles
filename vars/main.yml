@@ -2,15 +2,20 @@
 # vars file for ansible-morethandotfiles
 nvim_user: "{{ dotfiles_user }}"
 nvim_python_ver: "{{ dotfiles_python_ver }}"
-# do not install runtime cnofig for fzf
-nvim_fzf_bin_only: true
-# do not install runtime cnofig for fnm
-nvim_fnm_install_skip_shell: true
-# do not install runtime cnofig for pyenv
-pyenv_enable_rc: false
+
+# do not install fzf, dotbot will
+nvim_install_fzf: false
+
+# do not adjust shell rc (these are my dotfiles afterall)
+nvim_fnm_skip_shell: true
+
 # do not install runtime config for rustup
 rustup_config_user_shell: false
+# configure creates
 nvim_cargo_crates: "{{ dotfiles_cargo_crates|list }}"
+
+# do not install runtime cnofig for pyenv
+pyenv_enable_rc: false
 
 # fonts
 nerdfonts_users:

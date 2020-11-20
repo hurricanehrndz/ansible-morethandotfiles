@@ -1,0 +1,15 @@
+---
+- name: Install required system packages
+  package:
+    name: "{{ dotfiles_sys_pkgs }}"
+    state: present
+  become: true
+
+  # using sheldon now -- refactor
+# - name: Install zsh plugin manager (antibody)
+#   shell:
+#     cmd: |
+#       set pipefail
+#       curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
+#     executable: /bin/bash
+#     creates: /usr/local/bin/antibody

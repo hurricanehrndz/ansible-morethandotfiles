@@ -17,4 +17,4 @@
 
     - name: Run role
       include_role:
-        name: ansible-morethandotfiles
+        name: morethandotfiles

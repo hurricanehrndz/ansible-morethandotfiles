@@ -1,14 +1,19 @@
 ---
 dotfiles_sys_pkgs:
+  - bandwhich
   - base-devel
+  - bat
+  - ccid
   - curl
   - exa
   - fd
   - gawk
   - git
   - grc
-  - ripgrep
-  - time
-  - zsh
-  - ccid
+  - hyperfine
   - pcsclite
+  - ripgrep
+  - skim
+  - time
+  - tmux
+  - zsh
