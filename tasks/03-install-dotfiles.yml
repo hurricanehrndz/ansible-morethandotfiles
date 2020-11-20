@@ -22,9 +22,11 @@
 
 # clean broken links
 - name: dotfiles | Install dotfiles via dotbot
-  shell:
+  command:
     cmd: ./install
     creates: "{{ dotfiles_user_home }}/.config/zsh"
     chdir: "{{ dotfiles_root }}"
   environment:
     HOME: "{{ dotfiles_user_home }}"
+
+# Install tpm via sheldon
