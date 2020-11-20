@@ -18,6 +18,14 @@ provisioner:
     create: ../resources/playbooks/create.yml
     converge: ../resources/playbooks/converge.yml
     destroy: ../resources/playbooks/destroy.yml
+scenario:
+  name: default
+  test_sequence:
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
 verifier:
   name: testinfra
   directory: ../resources/tests/
