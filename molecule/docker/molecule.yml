@@ -1,0 +1,29 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: docker
+lint: |
+  yamllint .
+platforms:
+  - name: "morethandotfiles-archlinux"
+    image: archlinux:latest
+    pre_build_image: false
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../resources/playbooks/converge.yml
+scenario:
+  name: docker
+  test_sequence:
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+verifier:
+  name: testinfra
+  options:
+    verbose: true
