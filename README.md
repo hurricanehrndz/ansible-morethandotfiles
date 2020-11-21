@@ -1,6 +1,6 @@
 # MoreThanDotfiles
 
-[![Build Status][travis-badge]][travis-link]
+[![Build Status][action-badge]][action-link]
 [![Galaxy Role][role-badge]][galaxy-link]
 [![MIT licensed][mit-badge]][mit-link]
 
@@ -12,7 +12,7 @@ repo][dotfiles-repo].
 Feel free to test drive end result using docker:
 
 ```sh
-docker run -it --rm hurricane/morethandotfiles:ubuntu18
+docker run -it --rm hurricane/morethandotfiles:archlinux
 ```
 
 ## Requirements
@@ -83,6 +83,6 @@ Carlos Hernandez | [e-mail](mailto:hurricanehrndz@techbyte.ca)
 [dotfiles-repo]: https://github.com/hurricanehrndz/dotfiles
 [nvim_config-link]: https://galaxy.ansible.com/hurricanehrndz/nvim_config
 [nerdfonts-link]: https://galaxy.ansible.com/hurricanehrndz/nerdfonts
-[travis-badge]: https://img.shields.io/travis/hurricanehrndz/ansible-morethandotfiles/master.svg?style=for-the-badge&logo=travis
-[travis-link]: https://travis-ci.org/hurricanehrndz/ansible-morethandotfiles
+[action-badge]: https://img.shields.io/github/workflow/status/hurricanehrndz/ansible-morethandotfiles/CI?style=for-the-badge
+[action-link]: https://github.com/hurricanehrndz/ansible-morethandotfiles/actions?query=workflow%3ACI
 [demo]: ./images/morethandotfiles.gif
