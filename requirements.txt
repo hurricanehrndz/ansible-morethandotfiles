@@ -1,0 +1,8 @@
+ansible
+testinfra
+molecule
+molecule-lxd
+molecule-docker
+flake8
+ansible-lint
+yamllint
