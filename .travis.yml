@@ -6,12 +6,18 @@ matrix:
     - os: linux
       language: python
       python: "3.9"
-      services: docker
+      addons:
+        snaps:
+          - name: lxd
+            channel: stable
 git:
   clone: false
 install:
   - git clone https://github.com/$TRAVIS_REPO_SLUG.git morethandotfiles
   - cd morethandotfiles
+  - sudo /snap/bin/lxd waitready
+  - sudo /snap/bin/lxd init --auto
+  - sudo chgrp travis /var/snap/lxd/common/lxd/unix.socket
   - pip3 install -U pip
   - pip3 install -r requirements.txt
 script:
@@ -20,3 +26,6 @@ script:
   - ansible --version
   - ansible-lint --version
   - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

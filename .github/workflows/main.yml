@@ -12,13 +12,18 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
     strategy:
       matrix:
         tests:
           - distro: "archlinux"
             img: "archlinux/current"
-          - distro: "ubuntu"
-            img: "ubuntu/focal"
+          # Ubuntu tests are run on travis
+          # - distro: "ubuntu"
+          #   img: "ubuntu/focal"
+          #   scenario: 'default'
 
     steps:
       - name: Configure LXD
@@ -60,8 +65,30 @@ jobs:
 
       - name: Run molecule test
         run: |
-          sg lxd -c "molecule test"
+          sg lxd -c "molecule test -s docker"
         working-directory: morethandotfiles
         env:
           MLDISTRO: ${{ matrix.tests.distro }}
           MLIMG: ${{ matrix.tests.img }}
+
+      - if: ${{ matrix.test.scenario == 'docker' }}
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - if: ${{ matrix.test.scenario == 'docker' }}
+        name: Push image to Docker hub
+        run: |
+          docker_push=$(find ./ -name .docker_push -newermt "-1 hour" -ls | wc -l)
+          if [ "$docker_push" -eq "1" ]; then
+            exit 0
+          fi
+          docker                                                    \
+            commit                                                  \
+            --change='CMD ["/usr/sbin/su", "-l", "hurricanehrndz"]' \
+            morethandotfiles-archlinux                              \
+            hurricane/morethandotfiles:latest
+
+          docker push hurricane/morethandotfiles:latest
