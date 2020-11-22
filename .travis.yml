@@ -1,28 +1,22 @@
+---
 dist: focal
 matrix:
   fast_finish: true
   include:
-  - os: linux
-    env:
-    - ANSIBLE='ansible>=2.8'
-    - MOLECULE_SCENARIO="default"
-    language: python
-    python: '3.8'
-    addons:
-      snaps:
-        - name: lxd
-          channel: stable
+    - os: linux
+      language: python
+      python: "3.9"
+      services: docker
+git:
+  clone: false
 install:
-- sudo apt update
-- sudo /snap/bin/lxd waitready
-- sudo /snap/bin/lxd init --auto
-- sudo chgrp travis /var/snap/lxd/common/lxd/unix.socket
-- pip3 install -U pip
-- pip3 install "$ANSIBLE" testinfra molecule molecule-lxd docker flake8 ansible-lint yamllint
+  - git clone https://github.com/$TRAVIS_REPO_SLUG.git morethandotfiles
+  - cd morethandotfiles
+  - pip3 install -U pip
+  - pip3 install -r requirements.txt
 script:
-- python --version
-- molecule --version
-- ansible --version
-- molecule test -s $MOLECULE_SCENARIO
-notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  - python --version
+  - molecule --version
+  - ansible --version
+  - ansible-lint --version
+  - molecule test
