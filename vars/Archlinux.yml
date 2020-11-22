@@ -3,6 +3,7 @@ dotfiles_sys_pkgs:
   - bandwhich
   - base-devel
   - bat
+  - clang
   - ccid
   - curl
   - exa
@@ -17,3 +18,13 @@ dotfiles_sys_pkgs:
   - time
   - tmux
   - zsh
+
+dotfiles_cargo_crates:
+  - bottom
+  - cargo-cache
+  - cargo-update
+  - du-dust
+  - procs
+  - sheldon
+  - starship
+  - tealdeer

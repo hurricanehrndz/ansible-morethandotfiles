@@ -2,16 +2,6 @@
 # defaults file for ansible-morethandotfiles
 dotfiles_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
 
-dotfiles_cargo_crates:
-  - bottom
-  - cargo-cache
-  - cargo-update
-  - du-dust
-  - procs
-  - sheldon
-  - starship
-  - tealdeer
-
 dotfiles_python_ver: 3.9.0
 
 dotfiles_mono_fonts: true

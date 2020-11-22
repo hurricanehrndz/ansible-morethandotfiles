@@ -1,12 +1,32 @@
 ---
 dotfiles_sys_pkgs:
-  - zsh
-  - direnv
-  - git
+  - build-essential
   - curl
+  - clang
+  - clangd
+  - direnv
   - gawk
+  - git
   - grc
-  - time
-  - scdaemon
-  - pcscd
   - libpcsclite1
+  - pcscd
+  - scdaemon
+  - time
+  - tmux
+  - zsh
+
+dotfiles_cargo_crates:
+  - bandwhich
+  - bat
+  - bottom
+  - cargo-cache
+  - cargo-update
+  - du-dust
+  - exa
+  - fd
+  - hyperfine
+  - procs
+  - sheldon
+  - skim
+  - starship
+  - tealdeer
