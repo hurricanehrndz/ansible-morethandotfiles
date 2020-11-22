@@ -19,7 +19,7 @@ scenario:
   name: docker
   test_sequence:
     - create
-    - depedency
+    - dependency
     - converge
     - idempotence
     - verify
