@@ -5,14 +5,39 @@
 [![MIT licensed][mit-badge]][mit-link]
 
 This Ansible role is used to setup a minimal development environment supporting
-various languages. For a full feature set of please visit the [dotfiles
-repo][dotfiles-repo].
+various languages. For a full feature set of please visit the [dotfiles repo][dotfiles-repo].
+
+Please fork and make it your own. Use this as inspiration.
 ![MoreThanDotfiles][demo]
+![MoreThanDotfiles][speed-evidence]
+
+List of tools being used:
+
+- zsh
+
+  - sheldon (plugin manager)
+  - fastnodemanager
+  - spaceship prompt
+  - pyenv
+  - fast (response time is 114ms)
+  - vim like keybindings (search history j/k)
+  - accept suggestions (<C-Y>)
+
+- neovim
+
+  - built-in lsp
+  - completion support (lua, js, C, rust, yaml, ansible)
+  - clipboard support over SSH
+  - use Alt+[jkhl] to navigate between splits or tmux panes
+
+- tmux
+
+  - nvim aware, able to navigate between panes and vim splits seamlessly
 
 Feel free to test drive end result using docker:
 
 ```sh
-docker run -it --rm hurricane/morethandotfiles:archlinux
+docker run -it --rm hurricane/morethandotfiles
 ```
 
 ## Requirements
@@ -86,3 +111,4 @@ Carlos Hernandez | [e-mail](mailto:hurricanehrndz@techbyte.ca)
 [action-badge]: https://img.shields.io/github/workflow/status/hurricanehrndz/ansible-morethandotfiles/CI?style=for-the-badge
 [action-link]: https://github.com/hurricanehrndz/ansible-morethandotfiles/actions?query=workflow%3ACI
 [demo]: ./images/morethandotfiles.gif
+[speed-evidence]: ./images/benchmark.png
