@@ -14,7 +14,7 @@ dotfiles_cargo_crates:
   - cargo-update
   - du-dust
   - exa
-  - fd
+  - fd-find
   - hyperfine
   - procs
   - sd
