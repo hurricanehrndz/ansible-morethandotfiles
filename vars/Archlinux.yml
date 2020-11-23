@@ -14,17 +14,8 @@ dotfiles_sys_pkgs:
   - hyperfine
   - pcsclite
   - ripgrep
+  - sd
   - skim
   - time
   - tmux
   - zsh
-
-dotfiles_cargo_crates:
-  - bottom
-  - cargo-cache
-  - cargo-update
-  - du-dust
-  - procs
-  - sheldon
-  - starship
-  - tealdeer

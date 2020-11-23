@@ -1,0 +1,10 @@
+---
+dotfiles_cargo_crates:
+  - bottom
+  - cargo-cache
+  - cargo-update
+  - du-dust
+  - procs
+  - sheldon
+  - starship
+  - tealdeer
