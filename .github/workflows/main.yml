@@ -65,6 +65,10 @@ jobs:
 
       - name: Run molecule test
         run: |
+          docker_push=$(find ./ -name .docker_push -newermt "-1 hour" -ls | wc -l)
+          if [ "$docker_push" -eq "0" ]; then
+            exit 0
+          fi
           sg lxd -c "molecule test -s docker"
         working-directory: morethandotfiles
         env:
