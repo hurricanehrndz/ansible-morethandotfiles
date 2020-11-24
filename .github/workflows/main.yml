@@ -80,7 +80,7 @@ jobs:
       - name: Push image to Docker hub
         run: |
           docker_push=$(find ./ -name .docker_push -newermt "-1 hour" -ls | wc -l)
-          if [ "$docker_push" -eq "1" ]; then
+          if [ "$docker_push" -eq "0" ]; then
             exit 0
           fi
           docker                                                    \
