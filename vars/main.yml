@@ -8,9 +8,14 @@ nvim_install_fzf: false
 
 # do not adjust shell rc (these are my dotfiles afterall)
 nvim_fnm_skip_shell: true
+fnm_install_npmrc: true
+fnm_npmrc_suffix: ".config/npm/config"
 
 # do not install runtime config for rustup
-rustup_config_user_shell: false
+rustup_configure_shell: false
+# use XDG USE DIRS
+rustup_home_suffix: ".local/share/rustup"
+rustup_cargo_home_suffix: ".local/share/cargo"
 # configure creates
 nvim_cargo_crates: "{{ dotfiles_cargo_crates|list }}"
 
